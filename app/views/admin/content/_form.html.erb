@@ -149,12 +149,7 @@
   </div>    
 
   <div class=''>
-    <h4><%= _("Merge Articles") %></h4>
-    <%= form_tag '/posts' do %>
-    <div><%= label_tag 'articleid', 'Article ID ' %>
-      <%= text_field_tag 'merge_with', 'Enter article ID...' %></div>
-    <div><%= submit_tag 'Merge' %></div>
-    <% end %>
+    <%= render :partial => "admin/content/merge" if @current_user.profile_id == 1 %>
   </div>
  
   </div>
