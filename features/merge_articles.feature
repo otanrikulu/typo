@@ -3,19 +3,37 @@ Feature: Merge Articles
   In order to gift my thoughts to the world
   I want to merge articles with the same topic and similar content
 
-  Scenario: An admin can merge articles
+  Background:
     Given the blog is set up
-    And I am logged into the admin panel
+    And the following articles exist:
+#      | id | type    | title        | author       | published_at |
+#      | 1  | Article | Star Wars    | George Lucas |   1977-05-25 |
+#      | 2  | Article | Blade Runner | Ridley Scott |   1982-06-25 |
+#      | 3  | Article | Alien        |              |   1979-05-25 |
+#      | 4  | Article | THX-1138     | George Lucas |   1971-03-11 |
+
+      | id | title        | author       | published_at |
+      | 1  | Star Wars    | George Lucas |   1977-05-25 |
+      | 2  | Blade Runner | Ridley Scott |   1982-06-25 |
+      | 3  | Alien        |              |   1979-05-25 |
+      | 4  | THX-1138     | George Lucas |   1971-03-11 |
+
+
+  Scenario: An admin can merge articles
+    Given I am logged into the admin panel
     When I follow "All Articles"
     Then I should see "Manage articles"
-    When I follow "Edit"
+    When I follow "Star Wars"
     Then I should see "Merge Articles"
     And I should see "Article ID"
     And I should see "Merge"
+    When I fill in "merge_with" with "2"
+    And I press "Merge"
+    Then I should be on the edit article "Star Wars" page
+    And I should see "successfully merged"
 
   Scenario: A non-admin cannot merge articles
-    Given the blog is set up
-    And A publisher user exists
+    Given A publisher user exists
     And I am logged in as publisher
     When I follow "All Articles"
     Then I should see "Manage articles"
@@ -24,7 +42,6 @@ Feature: Merge Articles
     When I follow "New Article"
     Then I should see "New article"
     And I should not see "Merge Articles"
-    
 
   Scenario: When articles are merged, the merged article should contain the text of both previous articles
 

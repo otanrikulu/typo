@@ -1,4 +1,5 @@
 require 'base64'
+require 'ruby-debug'
 
 module Admin; end
 class Admin::ContentController < Admin::BaseController
@@ -35,6 +36,26 @@ class Admin::ContentController < Admin::BaseController
       return
     end
     new_or_edit
+  end
+
+  def merge
+    @article = Article.find(params[:id])
+# TIDY UP and DRY UP AFTER DONE!..
+#    params[:article] = @article
+#    unless params[:merge_with].empty?
+#      @article = Article.find(params[:id])
+#      params[:article] = @article
+#      @article = Article.merge_with(params['merge_with'])
+#      @article.save == false
+#      @article.merge_with(params['merge_with'])
+#      redirect_to "http://www.google.com"
+#      flash[:notice] = _("Article was successfully merged. #{params[:action]}, #{params[:id]}")
+#      return
+#    end
+#    params[:id]
+    @article_merged = Article.merge_with(@article.id, params[:merge_with])
+    flash[:notice] = _("Article ID: #{params[:id]} was successfully merged with Article ID: #{params[:merge_with]} - #{@article_merged.title}")
+    redirect_to({:controller=>"admin/content", :action=>"edit", :id=>params[:id]})
   end
 
   def destroy
@@ -146,6 +167,7 @@ class Admin::ContentController < Admin::BaseController
     @article.text_filter = current_user.text_filter if current_user.simple_editor?
 
     @post_types = PostType.find(:all)
+#debugger
     if request.post?
       if params[:article][:draft]
         get_fresh_or_existing_draft_for_article
@@ -240,4 +262,5 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
 end

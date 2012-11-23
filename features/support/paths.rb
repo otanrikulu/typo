@@ -18,6 +18,20 @@ module NavigationHelpers
     when /^the new article page$/
       '/admin/content/new'
 
+    when /^the edit article "([^"]+)" page$/
+      "/admin/content/edit/#{Article.find_by_title($1).id}"
+#      '{:action => edit, :id => Article.find_by_title($1).id, :controller => "admin/content"}'
+#      admin_content(Article.find_by_title($1).id)
+#      '/admin/content/edit/id'
+
+#    when /^Edit ([^"]+)$/
+    when /^Star Wars$/
+      "/admin/content/edit/#{Article.find_by_title("Star Wars").id}"
+
+
+#    when /^the edit page for "([^"]+)"$/
+#	edit_movie_path(Movie.find_by_title($1).id)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

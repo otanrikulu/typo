@@ -147,10 +147,6 @@
       <%= render 'admin/content/attachment', { :attachment_num => 1, :hidden => false } -%>
     </ul>
   </div>    
-
-  <div class=''>
-    <%= render :partial => "admin/content/merge" if @current_user.profile_id == Profile.find_by_label('admin').id %>
-  </div>
  
   </div>
 

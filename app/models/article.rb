@@ -103,6 +103,17 @@ class Article < Content
       article
     end
 
+    def merge_with(first_id, second_id)
+      article_first = Article.find(first_id)
+      article_second = Article.find(second_id)
+      article_second.body = article_second.title + "<br>" + article_second.body
+      article_first.body += article_second.body
+      article_first.save
+      article_first.comments << article_second.comments
+      Article.destroy(second_id)
+      article_first
+    end
+
     def search_with_pagination(search_hash, paginate_hash)
       
       state = (search_hash[:state] and ["no_draft", "drafts", "published", "withdrawn", "pending"].include? search_hash[:state]) ? search_hash[:state] : 'no_draft'

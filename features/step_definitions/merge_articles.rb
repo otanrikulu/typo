@@ -24,3 +24,15 @@ And /^I am logged in as publisher$/ do
     assert page.has_content?('Login successful')
   end
 end
+
+And /the following articles exist:/ do |articles_table|
+  articles_table.hashes.each do |article|
+    Article.create!(article)
+  end
+end
+
+#When /^(?:|I )click on edit "([^"]*)"$/ do |link|
+#  click_link(link)
+#end
+
+
