@@ -25,7 +25,6 @@ end
 
 source :rubygems
 
-gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'thin'
 gem 'rails', '~> 3.0.10'
 gem 'require_relative'
