@@ -34,6 +34,7 @@ GEM
     addressable (2.3.2)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
+    bcrypt-ruby (3.0.1)
     bluecloth (2.2.0)
     builder (2.1.2)
     capybara (1.1.2)
@@ -179,6 +180,7 @@ DEPENDENCIES
   acts_as_list
   acts_as_tree_rails3
   addressable (~> 2.1)
+  bcrypt-ruby (~> 3.0.0)
   bluecloth (~> 2.1)
   capybara
   coderay (~> 0.9)
